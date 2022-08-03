@@ -6,9 +6,10 @@ dotenv.config();
 export default async function validateToken(req, res, next) {
     const { authorization } = req.headers;
     const token = authorization?.replace("Bearer ", "");
+    
     const { id } = jwt.verify(token, process.env.JWT_SECRET)
 
-    if(!id) {
+    if(!token || !id) {
         return res.status(401).send("token inválido");
     }
 

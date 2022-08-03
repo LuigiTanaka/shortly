@@ -19,7 +19,6 @@ export default function validateSignUp(req, res, next) {
     const { error } = userSchema.validate(newUser, { abortEarly: false });
 
     if(error) {
-        console.log(error);
         return res.status(422).send(error.details)
     }
 

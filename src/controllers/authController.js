@@ -37,6 +37,7 @@ export async function signUp(req, res) {
 
 export async function signIn(req, res) {
     const loginUser = req.body;
+    console.log(loginUser);
 
     try {
         const { rows: dbUserArray } = await connection.query(`SELECT *, "createdAt"::VARCHAR FROM users WHERE email = $1`, [loginUser.email]);
@@ -53,7 +54,7 @@ export async function signIn(req, res) {
             return res.status(401).send("senha ou email incorretos");
         }
 
-        const token = jwt.sign({ id: loginUser.id }, process.env.JWT_SECRET);
+        const token = jwt.sign({ id: dbUser.id }, process.env.JWT_SECRET);
 
         delete dbUser.password;
 
