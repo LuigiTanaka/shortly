@@ -27,7 +27,6 @@ export async function shortUrl(req, res) {
 
         res.status(201).send({ shortUrl });
     } catch (error) {
-        console.log(error);
         res.status(500).send("erro ao criar shortUrl")
     }
 }
@@ -73,10 +72,7 @@ export async function openUrl(req, res) {
 export async function deleteUrl(req, res) {
     const { id: urlId } = req.params;
     const userId = res.locals.userId;
-
-    console.log(urlId);
-    console.log(userId);
-
+    
     try {
         const { rows: url } = await connection.query('SELECT * FROM urls WHERE id = $1', [urlId]);
 
@@ -89,6 +85,12 @@ export async function deleteUrl(req, res) {
         }
 
         await connection.query(`DELETE FROM urls WHERE id = $1`, [urlId]);
+
+        await connection.query(`
+            UPDATE users 
+            SET "linksCount" = "linksCount" - 1  
+            WHERE id=$1
+        `, [userId]);
 
         res.status(204).send("url deletada com sucesso!");
     } catch (error) {
