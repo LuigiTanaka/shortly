@@ -5,7 +5,7 @@ export async function getUserData(req, res) {
 
     try {
         const { rows: user } = await connection.query(`
-            SELECT users.id, users.name, SUM(urls."visitCount") as "visitCount" 
+            SELECT users.id, users.name, CAST(SUM(urls."visitCount") AS INT) as "visitCount" 
             FROM users JOIN urls
             ON urls."userId" = users.id
             WHERE users.id = $1
