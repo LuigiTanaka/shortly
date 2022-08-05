@@ -5,8 +5,8 @@ export async function getUserData(req, res) {
 
     try {
         const { rows: user } = await connection.query(`
-            SELECT users.id, users.name, CAST(SUM(urls."visitCount") AS INT) as "visitCount" 
-            FROM users JOIN urls
+            SELECT users.id, users.name, COALESCE(CAST(SUM(urls."visitCount") AS INT),0) AS "visitCount" 
+            FROM users LEFT JOIN urls
             ON urls."userId" = users.id
             WHERE users.id = $1
             GROUP BY users.id
