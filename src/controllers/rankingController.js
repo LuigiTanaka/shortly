@@ -17,6 +17,6 @@ export async function getRanking(req, res) {
 
         res.status(200).send(ranking);
     } catch (error) {
-        res.status(500).send("erro ao obter dados do usuário")
+        res.status(500).send("erro ao obter ranking")
     }
 }
