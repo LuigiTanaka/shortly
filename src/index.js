@@ -18,6 +18,6 @@ app.use(urlsRouter);
 app.use(usersRouter);
 app.use(rankingRouter);
 
-const PORT =  process.env.PORT || 4001;
+const PORT =  process.env.PORT;
 
 app.listen(PORT, () => console.log(`servidor rodando na porta --> ${PORT}`));
