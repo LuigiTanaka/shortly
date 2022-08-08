@@ -10,7 +10,7 @@ export async function getRanking(req, res) {
                 COALESCE(CAST(SUM(urls."visitCount") AS INT),0) AS "visitCount"
             FROM users LEFT JOIN urls
             ON urls."userId" = users.id
-            GROUP BY users.id
+            GROUP BY users.id, users.name, users."linksCount"
             ORDER BY "visitCount" DESC, "linksCount" DESC
             LIMIT 10
         `);
