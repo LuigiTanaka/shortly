@@ -9,7 +9,7 @@ export async function getUserData(req, res) {
             FROM users LEFT JOIN urls
             ON urls."userId" = users.id
             WHERE users.id = $1
-            GROUP BY users.id
+            GROUP BY users.id, users.name
         `, [userId]);
 
         if (user.length === 0) {
