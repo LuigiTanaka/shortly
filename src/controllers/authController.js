@@ -31,7 +31,7 @@ export async function signUp(req, res) {
         res.status(201).send("usuário cadastrado com sucesso!");
 
     } catch (error) {
-        res.status(500).send("erro ao cadastrar usuário");
+        res.status(500).send(error);
     }
 }
 
